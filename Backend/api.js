@@ -1,10 +1,13 @@
 const express = require('express')
-const bookingmodel = require('./booking')
+const bookingmodel = require('./models/booking')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const adminmodel = require('./aRegister')
-const baddmodel = require('./bikeAdd')
+const adminmodel = require('./models/aRegister')
+const baddmodel = require('./models/bikeAdd')
+
+//config file added
+const db = require('./config/mongoos');
 // const bcrypt = require('bcrypt')
 
 
@@ -14,10 +17,6 @@ app.use(cors());
 app.use(express.static("attach"));
 
 
-mongoose.connect("mongodb://127.0.0.1:27017/BikeServ")
-.then((res)=>{
-    console.log(res,"DB Connected")
-}).catch(err=>{console.log(err)});
 
 
 app.post("/ClintBooking",async(req,res)=>{
@@ -93,7 +92,7 @@ res.send(data);
 
 //multer npm
 var multer = require('multer');
-const bikeAdd = require('./bikeAdd')
+const bikeAdd = require('./models/bikeAdd')
 // const dRegister = require('./dRegister')
 
 let storage= multer.diskStorage({
